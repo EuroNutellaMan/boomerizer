@@ -19,7 +19,7 @@ Precompile binaries are available in the [releases](https://github.com/EuroNutel
 ### Build from source
 1. You will need to install rust and cargo on your machine. You can find out how to do that [here](https://doc.rust-lang.org/stable/book/ch01-01-installation.html)
 
-2. Clone this repository
+2. Clone this repository wherever you want
 ```
 git clone https://github.com/EuroNutellaMan/boomerizer.git && cd boomerizer
 ```
@@ -28,3 +28,8 @@ git clone https://github.com/EuroNutellaMan/boomerizer.git && cd boomerizer
 ```
 cargo build --release
 ```
+
+4. You'll find your binary in:
+```
+target/releases/boomerizer # Linux and MacOS
+target\releases\boomerizer.exe # Windows
