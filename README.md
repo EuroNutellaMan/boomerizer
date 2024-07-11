@@ -14,6 +14,7 @@ This is.....an.... example of a...boomerized....text🤪🤪🤪 generated....�
 ### Pre-compiled binaries
 Precompile binaries are available in the [releases](https://github.com/EuroNutellaMan/boomerizer/releases) page for:
 - Linux x86_64
+- Linux ARM64
 - Windows x86_64
 
 ### Build from source
