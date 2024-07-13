@@ -51,6 +51,18 @@ fn main() {
     // prints the result
     println!("{}", "Boomerized text:".green());
     println!("{boomer_text}");
+    
+    // on windows it keeps the command line open until the user decides to close it instead of
+    // closing it as soon as the program is done, which is a problem because it makes it impossible
+    // for the user to actually read and copy the boomerized text. What a silly OS that is.
+    #[cfg(target_os = "windows")]
+    {
+        use std::io::Write;
+        println!("{}", "Press Enter to exit...".yellow());
+        io::stdout().flush().unwrap();
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+    }
 }
 
 fn add_dots(word: &str, dot: &char) -> String {
