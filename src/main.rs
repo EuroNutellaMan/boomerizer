@@ -3,21 +3,28 @@ use colored::*;
 use std::io;
 
 fn main() {
+    // introducing the variables for dots and a list of emojis
     let dot: char = '.';
     let emojis: [char; 14] = ['🤣', '💀', '🤪', '😍', '😡', '😂', '😊', '🙄', '🥲', '😘', '😏', '👍', '🙅', '🤦'];
 
+    // get the percentage that will be used to generate the text later
     let percent_dots = percentage_assigner("dots");
-
     let percent_emojis = percentage_assigner("emojis");
 
+    // ask user for the text to be converted
     println!("{}", "Input a text that needs to be boomerized:".yellow());
     let mut normal_text = String::new();
     io::stdin()
         .read_line(&mut normal_text)
         .expect(&"Failed to read line!".red());
 
+    // this will store the boomerized text
     let mut boomer_text = String::new();
 
+    // splits the normal text by whitespace and iterates through every word
+    // for each word the program decides if dots and emojis should be added using the
+    // aforementioned percentages, if yes then the program will add dots and/or emojis
+    // then it will add the new word to boomer_text
     for word in normal_text.split_whitespace() {
         let dotting: bool = rand::thread_rng()
             .gen_bool(percent_dots);
@@ -38,22 +45,27 @@ fn main() {
         boomer_text += &boomer_word;
     }
 
+    // deletes the last ' ', it may remove a '.' if the last word has been dotted but that's ok
     boomer_text.pop();
 
+    // prints the result
     println!("{}", "Boomerized text:".green());
     println!("{boomer_text}");
 }
 
 fn add_dots(word: &str, dot: &char) -> String {
+    // how many dots should be added
     let num_dots: u32 = rand::thread_rng()
         .gen_range(3..=5);
 
     let mut result = String::from(word);
 
+    // adds the appropriate number of dots to the word
     for _ in 0..num_dots {
         result.push(*dot);
     }
 
+    // decide if we should add a space or not after the dots
     let space: bool = rand::thread_rng()
         .gen_bool(0.3);
     if space {
@@ -64,6 +76,7 @@ fn add_dots(word: &str, dot: &char) -> String {
 }
 
 fn add_emoji(word: &str, emojis: &[char; 14]) -> String {
+    // choose which emoji and how many copies of it should be added to the word
     let mut choice = rand::thread_rng();
     let emoji: &char = emojis.choose(&mut choice).unwrap();
     let num_emojis: u32 = rand::thread_rng()
@@ -71,14 +84,19 @@ fn add_emoji(word: &str, emojis: &[char; 14]) -> String {
 
     let mut result = String::from(word);
 
+    // add said emoji num_emoji amount of times
     for _ in 0..num_emojis {
         result.push(*emoji);
     }
 
+    // returns the emojified word with a ' '
     format!("{result} ")
 }
 
+// this fn serves the purpose of asking the user to input a percentage
+// it asks for a word to tell the user what the percentage is for
 fn percentage_assigner(word: &str) -> f64 {
+    // loop to ask the user and handle eventual errors
     let percentage = loop {
         println!("{} {}{}", "Percentage for text that needs to be followed by".yellow(), format!("{word}").blue(), ":".yellow());
         println!("{}", "Input a number between 0.0 and 1.0 (ex: 0.5):".yellow());
@@ -88,6 +106,9 @@ fn percentage_assigner(word: &str) -> f64 {
             .read_line(&mut percentage)
             .expect(&"failed to read line!".red());
 
+        // check the user input if it's convertible to f64 and if it's between 0 and 1
+        // if not it loops back and ask the user to input the percentage again
+        // if yes it returns the f64
         let _percentage: f64 = match percentage
             .trim()
             .parse() {
@@ -106,5 +127,6 @@ fn percentage_assigner(word: &str) -> f64 {
             };
     };
 
+    // returns the percentage obtained from the loop
     percentage
 }
