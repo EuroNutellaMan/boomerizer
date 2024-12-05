@@ -1,4 +1,5 @@
 # Boomerizer
+This repository has been moved to [codeberg](https://codeberg.org/EuroNutellaMan/boomerizer)
 
 ## Introduction
 Boomerizer is a simple CLI tool that uses Rust to turn normal text into boomer text.
